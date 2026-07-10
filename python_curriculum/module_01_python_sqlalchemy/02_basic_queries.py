@@ -130,6 +130,7 @@ def top_credit_score_customers(limit: int = 10):
         )
         customers = session.execute(stmt).scalars().all()
         for c in customers:
+            # In production, avoid logging raw customer PII; this is for educational output only
             print(f"{c.first_name} {c.last_name}  Score={c.credit_score}")
         return customers
 
@@ -145,7 +146,9 @@ def customers_with_gmail():
         stmt = select(Customer).where(Customer.email.like("%@gmail.com"))
         customers = session.execute(stmt).scalars().all()
         for c in customers:
-            print(f"{c.first_name} {c.last_name}  {c.email}")
+            # Mask the email local-part in output to avoid logging raw PII
+            domain = c.email.split("@")[-1] if "@" in c.email else c.email
+            print(f"{c.first_name} {c.last_name}  ***@{domain}")
         return customers
 
 

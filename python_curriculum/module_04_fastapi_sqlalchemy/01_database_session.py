@@ -25,10 +25,12 @@ load_dotenv()
 # pool_pre_ping  — check connection health before using from pool
 # echo           — set True to log all SQL (useful while learning)
 
-DATABASE_URL = os.getenv(
-    "DATABASE_URL",
-    "******localhost:5432/firstnational_db"
-)
+DATABASE_URL = os.getenv("DATABASE_URL")
+if not DATABASE_URL:
+    raise RuntimeError(
+        "Set DATABASE_URL env var. Example: "
+        "******localhost:5432/firstnational_db"
+    )
 
 engine = create_engine(
     DATABASE_URL,

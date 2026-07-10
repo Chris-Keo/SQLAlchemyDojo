@@ -24,10 +24,12 @@ import enum
 
 load_dotenv()  # reads .env file for DATABASE_URL
 
-DATABASE_URL = os.getenv(
-    "DATABASE_URL",
-    "******localhost:5432/firstnational_db"
-)
+DATABASE_URL = os.getenv("DATABASE_URL")
+if not DATABASE_URL:
+    raise RuntimeError(
+        "Set DATABASE_URL env var. Example: "
+        "******localhost:5432/firstnational_db"
+    )
 
 # create_engine() is the entry point to the database.
 # pool_pre_ping=True automatically checks connection health before using it.

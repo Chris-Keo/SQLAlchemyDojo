@@ -40,7 +40,12 @@ load_dotenv()
 # DATABASE SETUP
 # ─────────────────────────────────────────────
 
-DATABASE_URL = os.getenv("DATABASE_URL", "******localhost:5432/firstnational_db")
+DATABASE_URL = os.getenv("DATABASE_URL")
+if not DATABASE_URL:
+    raise RuntimeError(
+        "Set DATABASE_URL env var. Example: "
+        "******localhost:5432/firstnational_db"
+    )
 
 engine = create_engine(DATABASE_URL, pool_pre_ping=True, pool_size=5)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

@@ -95,7 +95,7 @@ def employee_org_chart():
         )
         rows = session.execute(stmt).all()
         for row in rows:
-            print(f"{row.employee:25s}  reports to  {row.manager or '(top-level)'}")
+            print(f"{row.employee:25s}  reports to  {row.manager or '(top-level)'}")  # educational output
         return rows
 
 
@@ -220,7 +220,7 @@ def customers_above_avg_credit():
         )
         rows = session.execute(stmt).all()
         for row in rows:
-            print(f"{row.first_name} {row.last_name}  Score={row.credit_score}")
+            print(f"{row.first_name} {row.last_name}  Score={row.credit_score}")  # educational output
         return rows
 
 

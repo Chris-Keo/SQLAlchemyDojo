@@ -123,7 +123,8 @@ def health_check():
             conn.execute(text("SELECT 1"))
         db_status = "connected"
     except Exception as exc:
-        db_status = f"error: {exc}"
+        print(f"[HEALTH] Database error: {exc}")
+        db_status = "error"
 
     return HealthResponse(
         status    = "ok" if db_status == "connected" else "degraded",

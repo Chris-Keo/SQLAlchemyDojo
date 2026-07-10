@@ -450,7 +450,8 @@ async def capstone_health_dashboard():
         pubsub_channels = await ar.execute_command("PUBSUB", "CHANNELS", "*")
         active_channels = pubsub_channels or []
     except Exception as exc:
-        redis_error = str(exc)
+        # Log internally, do not expose error details in the response
+        print(f"[HEALTH] Redis error: {exc}")
 
     # Database stats
     db_ok      = False
@@ -478,8 +479,10 @@ async def capstone_health_dashboard():
             ).scalar()
         db_ok = True
     except Exception as exc:
-        db_version  = f"error: {exc}"
-        open_alerts = active_accounts = total_customers = delinquent_loans = None
+        # Log internally but do not expose exception details in the API response
+        print(f"[HEALTH] Database error: {exc}")
+        db_version   = None
+        open_alerts  = active_accounts = total_customers = delinquent_loans = None
 
     return {
         "api": {

@@ -82,7 +82,7 @@ def exercise_3():
         for row in rows:
             print(f"{row.state}  #{row.state_rank}  "
                   f"{row.first_name} {row.last_name}  "
-                  f"score={row.credit_score}")
+                  f"score={row.credit_score}")  # educational output
         return rows
 
 

@@ -64,7 +64,7 @@ pip install sqlalchemy psycopg2-binary fastapi uvicorn[standard] redis pydantic 
 Create a `.env` file in the `python_curriculum/` folder:
 
 ```
-DATABASE_URL=******localhost:5432/firstnational_db
+DATABASE_URL=postgresql://<user>:<password>@localhost:5432/firstnational_db
 REDIS_URL=redis://localhost:6379/0
 ```
 

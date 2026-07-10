@@ -315,7 +315,8 @@ async def health():
         pong = await ar.ping()
         redis_status = "ok" if pong else "no-pong"
     except Exception as exc:
-        redis_status = f"error: {exc}"
+        print(f"[HEALTH] Redis error: {exc}")
+        redis_status = "error"
 
     try:
         with SessionLocal() as db:
@@ -323,7 +324,8 @@ async def health():
             db.execute(text("SELECT 1"))
         db_status = "ok"
     except Exception as exc:
-        db_status = f"error: {exc}"
+        print(f"[HEALTH] Database error: {exc}")
+        db_status = "error"
 
     return {
         "status":   "ok" if redis_status == "ok" and db_status == "ok" else "degraded",

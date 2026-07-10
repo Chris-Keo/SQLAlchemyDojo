@@ -95,7 +95,7 @@ def customer_credit_score_rankings():
         for row in rows:
             print(f"#{row.rank:<4d} {row.first_name} {row.last_name:<20s}  "
                   f"Score={row.credit_score}  "
-                  f"Pctile={float(row.percentile):.1%}")
+                  f"Pctile={float(row.percentile):.1%}")  # educational output
         return rows
 
 
