@@ -92,10 +92,7 @@ def customer_credit_score_rankings():
             .order_by("rank")
         )
         rows = session.execute(stmt).all()
-        for row in rows:
-            print(f"#{row.rank:<4d} {row.first_name} {row.last_name:<20s}  "
-                  f"Score={row.credit_score}  "
-                  f"Pctile={float(row.percentile):.1%}")  # educational output
+        print(f"  → {len(rows)} customer ranking(s) returned")
         return rows
 
 

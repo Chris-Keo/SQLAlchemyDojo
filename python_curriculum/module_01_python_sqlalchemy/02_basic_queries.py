@@ -129,9 +129,7 @@ def top_credit_score_customers(limit: int = 10):
             .limit(limit)
         )
         customers = session.execute(stmt).scalars().all()
-        for c in customers:
-            # In production, avoid logging raw customer PII; this is for educational output only
-            print(f"{c.first_name} {c.last_name}  Score={c.credit_score}")
+        print(f"  → {len(customers)} customer(s) returned (see returned objects for details)")
         return customers
 
 
@@ -167,8 +165,7 @@ def employees_without_manager():
             .order_by(Employee.last_name)
         )
         employees = session.execute(stmt).scalars().all()
-        for e in employees:
-            print(f"ID={e.employee_id}  {e.first_name} {e.last_name}  {e.job_title}")
+        print(f"  → {len(employees)} top-level employee(s) found (see returned objects)")
         return employees
 
 

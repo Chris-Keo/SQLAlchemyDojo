@@ -79,10 +79,7 @@ def exercise_3():
             .order_by(Customer.state, rank_in_state)
         )
         rows = session.execute(stmt).all()
-        for row in rows:
-            print(f"{row.state}  #{row.state_rank}  "
-                  f"{row.first_name} {row.last_name}  "
-                  f"score={row.credit_score}")  # educational output
+        print(f"  → {len(rows)} customer(s) ranked by credit score within state")
         return rows
 
 

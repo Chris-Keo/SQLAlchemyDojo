@@ -94,8 +94,7 @@ def employee_org_chart():
             .order_by("manager", "employee")
         )
         rows = session.execute(stmt).all()
-        for row in rows:
-            print(f"{row.employee:25s}  reports to  {row.manager or '(top-level)'}")  # educational output
+        print(f"  → {len(rows)} employee record(s) in org chart (see returned rows for details)")
         return rows
 
 
@@ -219,8 +218,7 @@ def customers_above_avg_credit():
             .order_by(Customer.credit_score.desc())
         )
         rows = session.execute(stmt).all()
-        for row in rows:
-            print(f"{row.first_name} {row.last_name}  Score={row.credit_score}")  # educational output
+        print(f"  → {len(rows)} customer(s) above bank-wide average credit score")
         return rows
 
 
