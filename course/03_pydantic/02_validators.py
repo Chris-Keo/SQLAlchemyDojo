@@ -202,7 +202,8 @@ if __name__ == "__main__":
 
     # Annotated types
     c = ContactInfo(name="Bob", phone="+44 7911 123456", postcode="sw1a 1aa")
-    print(f"\n{c.name}: {c.postcode}")  # phone omitted from output — treat as private
+    # Confirm validation ran (phone normalised, postcode uppercased) without logging PII
+    print(f"\nContactInfo validated: name={c.name!r}")
 
     # Discriminated union
     order = Order(
