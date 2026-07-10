@@ -20,7 +20,7 @@ from __future__ import annotations
 
 import random
 from dataclasses import dataclass, field, asdict
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
 from enum import StrEnum
 from typing import Literal
 from uuid import uuid4
@@ -102,7 +102,7 @@ class Sale:
     unit_price: Money
     sale_date: date
     id: str = field(default_factory=lambda: str(uuid4())[:8])
-    created_at: datetime = field(default_factory=datetime.utcnow)
+    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
 
     @property
     def revenue(self) -> Money:

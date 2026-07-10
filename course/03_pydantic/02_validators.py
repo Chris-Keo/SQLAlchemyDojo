@@ -164,26 +164,28 @@ class Order(BaseModel):
 # Demo
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
-    # @field_validator
+    # @field_validator — valid registration
+    valid_data = {
+        "username": "alice123",
+        "pwd": "Secret1!",
+        "confirm_password": "Secret1!",
+        "birth_date": "1990-06-15",
+    }
     try:
-        r = Registration(
-            username="alice123",
-            p_w_d="Secret1!",
-            confirm_password="Secret1!",
-            birth_date="1990-06-15",
-        )
+        r = Registration(**valid_data)
         print("Registered:", r.username)
     except ValidationError as e:
         print(e)
 
-    # Multiple errors at once
+    # Multiple errors at once (bad data)
+    bad_data = {
+        "username": "al!ce",
+        "pwd": "weak",
+        "confirm_password": "weak",
+        "birth_date": "2015-01-01",
+    }
     try:
-        Registration(
-            username="al!ce",
-            p_w_d="weak",
-            confirm_password="weak",
-            birth_date="2015-01-01",
-        )
+        Registration(**bad_data)
     except ValidationError as e:
         print("\nAll errors:")
         for err in e.errors():
@@ -208,4 +210,4 @@ if __name__ == "__main__":
         amount=99.99,
         payment={"payment_type": "credit_card", "card_number": "1234567890123456", "expiry": "12/26", "cvv": "123"},
     )
-    print(f"\nPayment via: {type(order.payment).__name__}")
+    print(f"\nPayment via: {type(order.payment).__name__}")  # prints type name only

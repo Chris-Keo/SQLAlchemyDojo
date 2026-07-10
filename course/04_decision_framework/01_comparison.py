@@ -17,7 +17,7 @@ import json
 import sys
 import timeit
 from dataclasses import dataclass, field, asdict
-from datetime import datetime
+from datetime import datetime, timezone
 from enum import StrEnum
 from typing import Any
 from uuid import uuid4
@@ -62,7 +62,7 @@ class OrderPlain:
         self.id = str(uuid4())
         self.customer_email = customer_email
         self.items = items
-        self.created_at = datetime.utcnow()
+        self.created_at = datetime.now(timezone.utc)
 
     @property
     def total(self) -> float:
@@ -98,7 +98,7 @@ class OrderDC:
     items: list[OrderItemDC]
     id: str = field(default_factory=lambda: str(uuid4()))
     status: OrderStatus = OrderStatus.PENDING
-    created_at: datetime = field(default_factory=datetime.utcnow)
+    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
 
     @property
     def total(self) -> float:
@@ -126,7 +126,7 @@ class OrderPydantic(BaseModel):
     customer_email: EmailStr
     items: list[OrderItemPydantic] = Field(min_length=1)
     status: str = "pending"
-    created_at: datetime = Field(default_factory=datetime.utcnow)
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
     @property
     def total(self) -> float:
@@ -198,7 +198,7 @@ def process_order_request(raw_json: str) -> dict[str, Any]:
         order_id=order_dc.id,
         total=order_dc.total,
         item_count=len(order_dc.items),
-        confirmed_at=datetime.utcnow().isoformat(),
+        confirmed_at=datetime.now(timezone.utc).isoformat(),
     )
 
     return {

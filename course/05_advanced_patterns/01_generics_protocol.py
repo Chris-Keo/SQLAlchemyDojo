@@ -12,6 +12,7 @@ Topics:
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from datetime import datetime, timezone
 from typing import Generic, Iterator, Protocol, TypeVar, runtime_checkable
 from uuid import uuid4
 
@@ -156,9 +157,8 @@ class Product:
 @dataclass
 class TimestampMixin:
     """Add created_at / updated_at to any dataclass via inheritance."""
-    from datetime import datetime
-    created_at: datetime = field(default_factory=lambda: __import__("datetime").datetime.utcnow())
-    updated_at: datetime = field(default_factory=lambda: __import__("datetime").datetime.utcnow())
+    created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    updated_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
 
 
 @dataclass

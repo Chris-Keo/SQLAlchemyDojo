@@ -121,8 +121,8 @@ if __name__ == "__main__":
     db = DatabaseSettings()
     print("DB host:", db.host)
     print("DB URL:", db.url)
-    print("DB password repr:", db.password)   # ***** hidden
-    print("DB password value:", db.password.get_secret_value())  # exposed explicitly
+    print("DB password repr:", db.password)   # ***** hidden by SecretStr
+    # get_secret_value() must be called explicitly — never logs automatically
 
     app = AppSettings()
     print("\nApp name:", app.app_name)

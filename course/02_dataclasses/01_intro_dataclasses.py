@@ -150,7 +150,8 @@ if __name__ == "__main__":
 
     # Employee with InitVar
     emp = Employee("Alice", 60_000, bonus_pct=0.10)
-    print(emp)                   # Employee(name='Alice', salary=60000, annual_bonus=6000.0)
+    print(f"Employee: {emp.name}, company={emp.company}")    # name + company only
+    print(f"Annual bonus calculated: {bool(emp.annual_bonus)}")  # confirm bonus computed
     print(Employee.company)      # ACME Corp
 
     # Utility functions

@@ -13,7 +13,7 @@ Key difference from dataclasses:
 from __future__ import annotations
 
 import json
-from datetime import date, datetime
+from datetime import date, datetime, timezone
 from typing import Annotated
 from uuid import UUID, uuid4
 
@@ -43,7 +43,7 @@ class User(BaseModel):
     email: EmailStr           # validated email format
     age: PositiveInt          # must be > 0
     website: HttpUrl | None = None
-    created_at: datetime = Field(default_factory=datetime.utcnow)
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
     # model_config replaces the inner Config class from Pydantic v1
     model_config = ConfigDict(
