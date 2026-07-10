@@ -202,7 +202,7 @@ if __name__ == "__main__":
 
     # Annotated types
     c = ContactInfo(name="Bob", phone="+44 7911 123456", postcode="sw1a 1aa")
-    print(f"\n{c.name}: {c.phone} / {c.postcode}")
+    print(f"\n{c.name}: {c.postcode}")  # phone omitted from output — treat as private
 
     # Discriminated union
     order = Order(

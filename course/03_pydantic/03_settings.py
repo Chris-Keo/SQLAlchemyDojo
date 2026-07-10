@@ -120,9 +120,8 @@ if __name__ == "__main__":
     # Demonstrate defaults (no env vars set)
     db = DatabaseSettings()
     print("DB host:", db.host)
-    print("DB URL:", db.url)
-    print("DB password repr:", db.password)   # ***** hidden by SecretStr
-    # get_secret_value() must be called explicitly — never logs automatically
+    print("DB URL (schema only):", db.url.split("@")[1] if "@" in db.url else db.host)
+    # SecretStr hides the value in __repr__ — call .get_secret_value() only when needed
 
     app = AppSettings()
     print("\nApp name:", app.app_name)
