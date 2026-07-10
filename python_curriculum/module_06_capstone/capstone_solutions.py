@@ -64,10 +64,14 @@ def get_db():
 
 
 def get_sync_redis() -> redis.Redis:
+    if _sync_redis is None:
+        raise RuntimeError("Redis not initialized — application startup not complete")
     return _sync_redis
 
 
 def get_async_redis() -> aioredis.Redis:
+    if _async_redis is None:
+        raise RuntimeError("Redis not initialized — application startup not complete")
     return _async_redis
 
 

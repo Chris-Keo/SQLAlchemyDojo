@@ -261,10 +261,14 @@ def list_employees(
 from fastapi.responses import JSONResponse
 
 
+import logging as _logging
+_logger = _logging.getLogger(__name__)
+
+
 @app.exception_handler(SQLAlchemyError)
 async def sqlalchemy_error_handler(request: Request, exc: SQLAlchemyError) -> JSONResponse:
-    # Log the real error internally (don't expose to client)
-    print(f"[DB ERROR] {request.method} {request.url}: {exc}")
+    # Log internally without exposing internal details to the client
+    _logger.error("[DB ERROR] %s %s: %s", request.method, request.url.path, type(exc).__name__)
     return JSONResponse(
         status_code=500,
         content={"detail": "A database error occurred. Please try again later."},
